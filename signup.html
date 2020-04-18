@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>WiseCorp | signup</title>
+    <title>Libs Tourism | signup</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/signup.css" type="text/css">
@@ -21,6 +21,65 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script type="text/javascript">
+        function validatePassword(pwd) {
+
+
+
+            // Create an array and push all possible values that you want in password
+            var matchedCase = new Array();
+            matchedCase.push("[$@$!%*#?&]"); // Special Charector
+            matchedCase.push("[A-Z]"); // Uppercase Alpabates
+            matchedCase.push("[0-9]"); // Numbers
+            matchedCase.push("[a-z]"); // Lowercase Alphabates
+
+            // Check the conditions
+            var ctr = 0;
+            for (var i = 0; i < matchedCase.length; i++) {
+                if (new RegExp(matchedCase[i]).test(pwd)) {
+                    ctr++;
+                }
+            }
+            // Display it
+            var color = "";
+            var strength = "";
+            switch (ctr) {
+                case 0:
+                case 1:
+                case 2:
+                    strength = "Very Weak";
+                    color = "red";
+                    break;
+                case 3:
+                    strength = "Medium";
+                    color = "orange";
+                    break;
+                case 4:
+                    strength = "Strong";
+                    color = "green";
+                    break;
+            }
+
+            document.getElementById("msg").innerHTML = strength;
+            document.getElementById("msg").style.color = color;
+
+        }
+        var check = function() {
+            if (document.getElementById('pwd').value ==
+                document.getElementById('confirm-pwd').value) {
+
+
+                document.getElementById('submit').disabled = false;
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = 'matching';
+            } else {
+
+                document.getElementById('submit').disabled = true;
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'not matching';
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -49,19 +108,7 @@
                     </ul>
                 </div>
                 <div class="clr "></div>
-                <!-- <div class="slider">
-                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" data-interval="1000"><img src="images/login1.jpg" width="960" height="320" alt="..."></div>
-                            <div class="carousel-item" data-interval="1000"><img src="images/login2.jpg" width="960" height="320" alt="..."> </div>
-                            <div class="carousel-item" data-interval="1000"><img src="images/login3.jpg" width="960" height="320" alt="..."></div>
-                            <div class="carousel-item" data-interval="1000"><img src="images/login4.jpg" width="960" height="320" alt="..."></div>
-                        </div><a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next"
-                            href="#carouselExampleFade" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a></div>
-                    <div class="clr"></div>
-                </div>
-                <div class="clr "></div>
-            </div> -->
+
                 <div class="clr "></div>
             </div>
 
@@ -77,30 +124,37 @@
                         <div class="article ">
 
                             <div class="signup-form ">
-                                <form action="index.html " method="post ">
+                                <form action="index.html " method="post " onsubmit=' return check();'>
                                     <h2 style="text-align: inherit;">Register</h2>
                                     <p class="hint-text ">Create your account. It's free and only takes a minute.</p>
                                     <div class="form-group ">
                                         <div class="row " style="margin-left: -15px;padding-left: 15px;">
-                                            <div class="col-xs-6 "><input type="text " class="form-control " name="first_name " placeholder="First Name " style="width: 150px;"></div>
-                                            <div class="col-xs-6 "><input type="text " class="form-control " name="last_name " placeholder="Last Name " style="width: 150px;"></div>
+                                            <div class="col-xs-6 "><input type="text " class="form-control " name="first_name " placeholder="First Name " pattern="[A-Za-z]{1,32}" required style="width: 150px;"></div>
+                                            <div class="col-xs-6 "><input type="text " class="form-control " name="last_name " placeholder="Last Name " pattern="[A-Za-z]{1,32}" required style="width: 150px;"></div>
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <input type="email " class="form-control " name="email " placeholder="Email ">
+                                        <input type="email " class="form-control " name="email " placeholder="Email " pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+
                                     </div>
                                     <div class="form-group ">
-                                        <input type="password " class="form-control " name="password " placeholder="Password ">
+                                        <input type="tel " class="form-control " name="ph-number " placeholder="123-456-7890" pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" title="allowed numbers only in XXX XXX XXXX,XXX.XXX.XXXX,XXX-XXX-XXXX formats" required>
                                     </div>
                                     <div class="form-group ">
-                                        <input type="password " class="form-control " name="confirm_password " placeholder="Confirm Password ">
+                                        <input type="password " id="pwd" onkeyup="validatePassword(this.value);" class="form-control " name="pwd " placeholder="Password " minlength="8" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                            required> <span id="msg"></span>
+
+                                    </div>
+                                    <div class="form-group ">
+                                        <input type="password " id="confirm-pwd" onkeyup='check();' onkeyup='check();' class="form-control " name="confirm_pwd " placeholder="Confirm Password " minlength="8" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                            required><span id='message'></span>
                                     </div>
 
                                     <div class="form-group ">
-                                        <button type="submit " class="btn btn-success btn-lg btn-block ">Register Now</button>
+                                        <button type="submit " id="submit" onsubmit="return check();" class="btn btn-success btn-lg btn-block ">Register Now</button>
                                     </div>
 
-                                    <div class="text-center ">Already have an account? <a href="login.html">Sign in</a></div>
+                                    <div class="text-center ">Already have an account? <a href="login.html ">Sign in</a></div>
                                 </form>
                             </div>
                         </div>
@@ -120,35 +174,35 @@
 
                             </ul>
                         </div>
-                        <div class="gadget">
-                            <h2 class="star"><span>Districts</span></h2>
-                            <div class="clr"></div>
-                            <ul class="sb_menu">
+                        <div class="gadget ">
+                            <h2 class="star "><span>Districts</span></h2>
+                            <div class="clr "></div>
+                            <ul class="sb_menu ">
                                 <li>
-                                    <a href="">Trivandrum</a> </li>
+                                    <a href=" ">Trivandrum</a> </li>
                                 <li>
-                                    <a href="">Kollam</a><br /> </li>
+                                    <a href=" ">Kollam</a><br /> </li>
                                 <li>
-                                    <a href="">Pathanamthitta</a><br /> </li>
+                                    <a href=" ">Pathanamthitta</a><br /> </li>
                                 <li>
-                                    <a href="">Alapuzha</a><br /> </li>
+                                    <a href=" ">Alapuzha</a><br /> </li>
                                 <li>
-                                    <a href="">Kottayam</a><br /> </li>
+                                    <a href=" ">Kottayam</a><br /> </li>
                                 <li>
-                                    <a href="">Idukki</a><br /> </li>
+                                    <a href=" ">Idukki</a><br /> </li>
                                 <li>
-                                    <a href="">Ernakulam</a><br /> </li>
-                                <li><a href="">Thrissur</a><br /> </li>
+                                    <a href=" ">Ernakulam</a><br /> </li>
+                                <li><a href=" ">Thrissur</a><br /> </li>
                                 <li>
-                                    <a href="">Palakkad</a><br /> </li>
-                                <li><a href="">Malappuram</a><br /> </li>
+                                    <a href=" ">Palakkad</a><br /> </li>
+                                <li><a href=" ">Malappuram</a><br /> </li>
                                 <li>
-                                    <a href="">Kozhikode</a><br /> </li>
+                                    <a href=" ">Kozhikode</a><br /> </li>
                                 <li>
-                                    <a href="">Wayanad</a><br /> </li>
-                                <li><a href="">kannur</a><br /> </li>
+                                    <a href=" ">Wayanad</a><br /> </li>
+                                <li><a href=" ">kannur</a><br /> </li>
                                 <li>
-                                    <a href="">Kasargod</a><br /> </li>
+                                    <a href=" ">Kasargod</a><br /> </li>
 
                             </ul>
                         </div>
@@ -161,9 +215,9 @@
             <div class="fbg_resize ">
                 <div class="col c1 ">
                     <h2><span>Image</span>Gallery</h2>
-                    <a href="# "><img src="images/tvm.jpg" width="75 " height="75 " alt=" " class="gal " /></a>
+                    <a href="# "><img src="images/tvm.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
                     <a href="# "><img src="images/idukki.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
-                    <a href="# "><img src="images/alapuzhaimg.jpg" width="75 " height="75 " alt=" " class="gal " /></a>
+                    <a href="# "><img src="images/alapuzhaimg.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
                     <a href="# "><img src="images/ekmimg.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
                     <a href="# "><img src="images/kannurimg.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
                     <a href="# "><img src="images/malapuramimg.jpg " width="75 " height="75 " alt=" " class="gal " /></a>
@@ -195,5 +249,7 @@
 
 
 </body>
+
+</html>
 
 </html>
